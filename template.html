@@ -11,17 +11,15 @@
   html, body { width: 1080px; height: 1080px; overflow: hidden; }
 
   :root {
-    /* Design system (immuable) */
-    --bg-base:     #0F172A;
-    --ink-200:     #E2E8F0;
-    --ink-300:     #CBD5E1;
-    --ink-400:     #94A3B8;
-    --ink-500:     #64748B;
+    --bg-base:  #0F172A;
+    --ink-200:  #E2E8F0;
+    --ink-300:  #CBD5E1;
+    --ink-400:  #94A3B8;
+    --ink-500:  #64748B;
     --font-display: 'Sora', system-ui, sans-serif;
     --font-body:    'Manrope', system-ui, sans-serif;
     --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
-    /* Couleurs dynamiques — injectées par n8n depuis le JSON AI */
     --accent-1:    {{color_accent_1}};
     --accent-2:    {{color_accent_2}};
     --accent-warm: {{color_accent_warm}};
@@ -102,7 +100,6 @@
     text-wrap: balance;
     max-width: 100%;
     overflow-wrap: break-word;
-    word-break: break-word;
   }
   body[data-slide-type="cover"][data-title-len="long"]  .cover-title { font-size: 150px; }
   body[data-slide-type="cover"][data-title-len="xlong"] .cover-title { font-size: 120px; }
@@ -115,6 +112,7 @@
   }
   body[data-slide-type="cover"] .cover-subtitle {
     font-family: var(--font-body);
+    font-weight: 400;
     font-size: 36px;
     color: var(--ink-300);
     margin-top: 56px;
@@ -150,7 +148,7 @@
   /* ─── TIP ─── */
   body[data-slide-type="tip"] .tip-header {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 72px;
+    margin-bottom: 64px;
   }
   body[data-slide-type="tip"] .tip-counter {
     font-family: var(--font-mono);
@@ -172,13 +170,14 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
+  /* Tip command : Sora pour le verbe FR, Mono pour le nom technique */
   body[data-slide-type="tip"] .tip-command {
-    font-family: var(--font-mono);
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-weight: 800;
     font-size: 110px;
     color: #fff;
     letter-spacing: -0.04em;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
     line-height: 1;
     max-width: 100%;
     overflow-wrap: break-word;
@@ -187,6 +186,8 @@
   body[data-slide-type="tip"][data-cmd-len="xlong"] .tip-command { font-size: 70px; }
 
   body[data-slide-type="tip"] .tip-command .accent {
+    font-family: var(--font-mono);
+    font-weight: 700;
     background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -194,41 +195,57 @@
 
   body[data-slide-type="tip"] .tip-description {
     font-family: var(--font-body);
-    font-size: 34px; color: var(--ink-300);
+    font-weight: 400;
+    font-size: 32px; color: var(--ink-300);
     line-height: 1.4;
-    margin-bottom: 60px;
-    max-width: 860px;
+    margin-bottom: 48px;
+    max-width: 880px;
   }
 
   body[data-slide-type="tip"] .terminal {
     background: linear-gradient(180deg, #1E293B 0%, #161E2F 100%);
     border: 1px solid rgba(255,255,255,.06);
     border-radius: 24px;
-    padding: 40px 48px;
+    padding: 36px 44px;
     margin-top: auto;
     box-shadow: 0 24px 48px -12px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
     overflow: hidden;
   }
   body[data-slide-type="tip"] .terminal-bar {
-    display: flex; gap: 10px; margin-bottom: 28px;
+    display: flex; gap: 10px; margin-bottom: 24px;
   }
   body[data-slide-type="tip"] .terminal-bar .dot {
-    width: 14px; height: 14px; border-radius: 50%;
+    width: 12px; height: 12px; border-radius: 50%;
+    opacity: 0.55;
   }
   body[data-slide-type="tip"] .terminal-bar .dot.r { background: #EF4444; }
   body[data-slide-type="tip"] .terminal-bar .dot.y { background: #F59E0B; }
   body[data-slide-type="tip"] .terminal-bar .dot.g { background: #10B981; }
 
-  body[data-slide-type="tip"] .term-line {
+  /* Mode command : grande taille */
+  body[data-slide-type="tip"][data-terminal-mode="command"] .term-line {
     font-family: var(--font-mono);
-    font-size: 28px; line-height: 1.65;
+    font-size: 28px;
+    line-height: 1.7;
     color: var(--ink-200);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .term-prompt  { color: var(--accent-2); }
-  .term-cmd     { color: #fff; font-weight: 600; }
-  .term-arg     { color: var(--accent-warm); }
-  .term-str     { color: #FCD34D; }
+
+  /* Mode snippet : plus petit pour 4-6 lignes, indentation préservée */
+  body[data-slide-type="tip"][data-terminal-mode="snippet"] .term-line {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink-200);
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .term-prompt  { color: var(--accent-2); font-weight: 700; }
+  .term-code    { color: var(--ink-200); font-weight: 500; }
   .term-comment { color: var(--ink-500); font-style: italic; }
 
   body[data-slide-type="tip"] .dots {
@@ -283,6 +300,7 @@
   }
   body[data-slide-type="cta"] .cta-subtitle {
     font-family: var(--font-body);
+    font-weight: 400;
     font-size: 32px; color: var(--ink-300);
     margin-bottom: 80px;
     max-width: 760px;
@@ -299,7 +317,7 @@
   body[data-slide-type="cta"] .cta-handle .at { color: var(--accent-2); }
 </style>
 </head>
-<body data-slide-type="{{slide_type}}" data-title-len="{{title_len}}" data-cmd-len="{{cmd_len}}" data-cta-len="{{cta_len}}">
+<body data-slide-type="{{slide_type}}" data-title-len="{{title_len}}" data-cmd-len="{{cmd_len}}" data-cta-len="{{cta_len}}" data-terminal-mode="{{terminal_mode}}">
 
   <div class="layer-grid"></div>
 
