@@ -33,6 +33,115 @@
     --orb-c3:      {{color_orb_3}};
   }
 
+ /* ─── Syntax highlighting (highlight.js) ─── */
+
+/* Mots-clés : if, const, function, return, async, await, import, export... */
+.hljs-keyword,
+.hljs-built_in,
+.hljs-selector-tag {
+  color: var(--accent-1);
+  font-weight: 700;
+}
+
+/* Strings : "hello", 'wip', `template` */
+.hljs-string,
+.hljs-template-string,
+.hljs-regexp {
+  color: #FCD34D;
+}
+
+/* Nombres : 42, 3.14, 0xFF */
+.hljs-number,
+.hljs-literal {
+  color: #FDA4AF;
+  font-weight: 600;
+}
+
+/* Noms de fonctions appelées : compute(), useMemo(), fetch() */
+.hljs-title,
+.hljs-title.function_,
+.hljs-function .hljs-title {
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+/* Noms de classes / types : React, Component, Promise */
+.hljs-title.class_,
+.hljs-class .hljs-title,
+.hljs-type {
+  color: var(--accent-warm);
+  font-weight: 600;
+}
+
+/* Paramètres / variables locales : (data, options) */
+.hljs-params,
+.hljs-variable {
+  color: var(--ink-200);
+}
+
+/* Attributs / propriétés : .map, .filter, obj.key */
+.hljs-attr,
+.hljs-property {
+  color: var(--accent-2);
+}
+
+/* Commentaires : // foo, /* bar */, # baz */
+.hljs-comment,
+.hljs-quote {
+  color: var(--ink-500);
+  font-style: italic;
+}
+
+/* Operators : =>, ===, &&, => */
+.hljs-operator,
+.hljs-punctuation {
+  color: var(--ink-300);
+}
+
+/* Bash : flags --inspect, --port */
+.hljs-meta,
+.hljs-meta-keyword,
+.hljs-symbol {
+  color: var(--accent-warm);
+  font-weight: 500;
+}
+
+/* Tags HTML / CSS selectors : <div>, .class, #id */
+.hljs-tag,
+.hljs-name {
+  color: var(--accent-1);
+}
+
+/* CSS properties : color, font-size, padding */
+.hljs-attribute {
+  color: var(--accent-2);
+  font-weight: 500;
+}
+
+/* CSS values literal : 100%, 1rem, #fff */
+.hljs-number.css-value,
+.hljs-built_in.css-value {
+  color: #FCD34D;
+}
+
+/* SQL keywords : SELECT, FROM, WHERE */
+.hljs-keyword.sql {
+  color: var(--accent-1);
+  text-transform: uppercase;
+}
+
+/* Préserve l'indentation et le wrapping des spans hljs */
+.term-code.hljs {
+  background: transparent;
+  padding: 0;
+  font-family: var(--font-mono);
+  display: inline;
+  white-space: inherit;
+}
+
+/* Override : pas de fond gris par défaut de hljs */
+.hljs { background: transparent !important; padding: 0 !important; }
+
   body {
     background: var(--bg-base);
     color: #fff;
