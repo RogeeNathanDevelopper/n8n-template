@@ -2,18 +2,6 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<!--
-  CAROUSEL TEMPLATE — Single slide renderer
-  ─────────────────────────────────────────
-  Receives one slide config and renders 1080×1080 ready for HCTI/Browserless.
-  Replace {{placeholders}} server-side (n8n Code node).
-
-  THEMES: data-theme attribute on <body> picks the color scheme.
-  Available: default | frontend | backend | devops | ai | security | productivity
-
-  SLIDE TYPES: data-slide-type on <body> picks the layout.
-  Available: cover | tip | cta
--->
 <title>Slide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,82 +11,43 @@
   html, body { width: 1080px; height: 1080px; overflow: hidden; }
 
   :root {
-    /* Static design system (NEVER overridden by themes) */
-    --bg: #0F172A;
-    --bg-elev: #1E293B;
-    --ink-200: #E2E8F0;
-    --ink-300: #CBD5E1;
-    --ink-400: #94A3B8;
-    --ink-500: #64748B;
+    /* Design system (immuable) */
+    --bg-base:     #0F172A;
+    --ink-200:     #E2E8F0;
+    --ink-300:     #CBD5E1;
+    --ink-400:     #94A3B8;
+    --ink-500:     #64748B;
+    --font-display: 'Sora', system-ui, sans-serif;
+    --font-body:    'Manrope', system-ui, sans-serif;
+    --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
-    --font-display: 'Sora', sans-serif;
-    --font-body:    'Manrope', sans-serif;
-    --font-mono:    'JetBrains Mono', monospace;
-
-    /* Theme tokens — overridden per data-theme */
-    --accent-1:    #818CF8; /* primary gradient stop 1 */
-    --accent-2:    #22D3EE; /* primary gradient stop 2 */
-    --accent-warm: #A78BFA; /* secondary highlight */
-    --glow-1:      rgba(79, 70, 229, 0.5);
-    --glow-2:      rgba(6, 182, 212, 0.35);
-    --orb-color:   conic-gradient(from 180deg, #4F46E5, #7C3AED, #EC4899, #06B6D4, #4F46E5);
-    --badge-bg:    rgba(124, 58, 237, 0.15);
-    --badge-bd:    rgba(124, 58, 237, 0.4);
-    --badge-tx:    #C4B5FD;
-  }
-
-  /* ─── THEMES ─── */
-  body[data-theme="frontend"] {
-    --accent-1: #C4B5FD; --accent-2: #F472B6; --accent-warm: #A78BFA;
-    --glow-1: rgba(168, 85, 247, 0.5); --glow-2: rgba(236, 72, 153, 0.35);
-    --orb-color: conic-gradient(from 180deg, #8B5CF6, #EC4899, #F472B6, #C4B5FD, #8B5CF6);
-    --badge-bg: rgba(236, 72, 153, 0.15); --badge-bd: rgba(236, 72, 153, 0.45); --badge-tx: #F9A8D4;
-  }
-  body[data-theme="backend"] {
-    --accent-1: #67E8F9; --accent-2: #818CF8; --accent-warm: #22D3EE;
-    --glow-1: rgba(6, 182, 212, 0.5); --glow-2: rgba(79, 70, 229, 0.35);
-    --orb-color: conic-gradient(from 180deg, #06B6D4, #0891B2, #4F46E5, #06B6D4);
-    --badge-bg: rgba(6, 182, 212, 0.15); --badge-bd: rgba(6, 182, 212, 0.45); --badge-tx: #67E8F9;
-  }
-  body[data-theme="devops"] {
-    --accent-1: #818CF8; --accent-2: #5EEAD4; --accent-warm: #67E8F9;
-    --glow-1: rgba(79, 70, 229, 0.5); --glow-2: rgba(20, 184, 166, 0.35);
-    --orb-color: conic-gradient(from 180deg, #4F46E5, #14B8A6, #06B6D4, #4F46E5);
-    --badge-bg: rgba(20, 184, 166, 0.15); --badge-bd: rgba(20, 184, 166, 0.45); --badge-tx: #5EEAD4;
-  }
-  body[data-theme="ai"] {
-    --accent-1: #C4B5FD; --accent-2: #FCA5A5; --accent-warm: #F0ABFC;
-    --glow-1: rgba(168, 85, 247, 0.5); --glow-2: rgba(244, 114, 182, 0.4);
-    --orb-color: conic-gradient(from 180deg, #8B5CF6, #D946EF, #F472B6, #FB7185, #8B5CF6);
-    --badge-bg: rgba(217, 70, 239, 0.15); --badge-bd: rgba(217, 70, 239, 0.45); --badge-tx: #F0ABFC;
-  }
-  body[data-theme="security"] {
-    --accent-1: #FCA5A5; --accent-2: #FBBF24; --accent-warm: #F87171;
-    --glow-1: rgba(220, 38, 38, 0.5); --glow-2: rgba(245, 158, 11, 0.35);
-    --orb-color: conic-gradient(from 180deg, #DC2626, #F59E0B, #FBBF24, #DC2626);
-    --badge-bg: rgba(220, 38, 38, 0.15); --badge-bd: rgba(220, 38, 38, 0.45); --badge-tx: #FCA5A5;
-  }
-  body[data-theme="productivity"] {
-    --accent-1: #818CF8; --accent-2: #22D3EE; --accent-warm: #A78BFA;
-    --glow-1: rgba(79, 70, 229, 0.5); --glow-2: rgba(6, 182, 212, 0.35);
-    --orb-color: conic-gradient(from 180deg, #4F46E5, #7C3AED, #06B6D4, #4F46E5);
-    --badge-bg: rgba(99, 102, 241, 0.15); --badge-bd: rgba(99, 102, 241, 0.45); --badge-tx: #A5B4FC;
+    /* Couleurs dynamiques — injectées par n8n depuis le JSON AI */
+    --accent-1:    {{color_accent_1}};
+    --accent-2:    {{color_accent_2}};
+    --accent-warm: {{color_accent_warm}};
+    --glow-1:      {{color_glow_1}};
+    --glow-2:      {{color_glow_2}};
+    --badge-bg:    {{color_badge_bg}};
+    --badge-bd:    {{color_badge_bd}};
+    --badge-tx:    {{color_badge_tx}};
+    --orb-c1:      {{color_orb_1}};
+    --orb-c2:      {{color_orb_2}};
+    --orb-c3:      {{color_orb_3}};
   }
 
   body {
-    background: var(--bg);
+    background: var(--bg-base);
     color: #fff;
     font-family: var(--font-body);
     position: relative;
     overflow: hidden;
   }
 
-  /* ─── Shared decorative layers ─── */
   .layer-grid {
     position: absolute; inset: 0; z-index: 1;
     background-image:
-      linear-gradient(rgba(99,102,241,.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(99,102,241,.07) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
     background-size: 60px 60px;
     -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
             mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
@@ -106,7 +55,7 @@
 
   .orb-aurora {
     position: absolute; width: 900px; height: 900px; border-radius: 50%;
-    background: var(--orb-color);
+    background: conic-gradient(from 180deg, var(--orb-c1), var(--orb-c2), var(--orb-c3), var(--orb-c1));
     filter: blur(140px); opacity: .55;
     top: -350px; right: -300px; z-index: 2;
   }
@@ -128,7 +77,6 @@
     display: flex; flex-direction: column;
   }
 
-  /* ─── Eyebrow tag ─── */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 22px; font-weight: 700;
@@ -143,24 +91,22 @@
     background: linear-gradient(90deg, var(--accent-2), transparent);
   }
 
-  /* ───────────── COVER SLIDE ───────────── */
+  /* ─── COVER ─── */
   body[data-slide-type="cover"] .cover-title {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
-    /* Container query for shrink: 200px default, 160px if line_1 > 10 chars, 130px if > 14 */
-    font-size: 200px;
+    font-size: 180px;
     line-height: .88;
     letter-spacing: -0.05em;
     color: #fff;
     text-wrap: balance;
-    /* Hard cap: 2 lines max */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
-  body[data-slide-type="cover"][data-title-len="long"] .cover-title { font-size: 160px; }
-  body[data-slide-type="cover"][data-title-len="xlong"] .cover-title { font-size: 130px; }
+  body[data-slide-type="cover"][data-title-len="long"]  .cover-title { font-size: 150px; }
+  body[data-slide-type="cover"][data-title-len="xlong"] .cover-title { font-size: 120px; }
+
   body[data-slide-type="cover"] .cover-title .gradient-text {
     background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-warm) 45%, var(--accent-2) 100%);
     -webkit-background-clip: text; background-clip: text;
@@ -169,16 +115,11 @@
   }
   body[data-slide-type="cover"] .cover-subtitle {
     font-family: var(--font-body);
-    font-size: 38px;
+    font-size: 36px;
     color: var(--ink-300);
     margin-top: 56px;
-    max-width: 760px;
+    max-width: 800px;
     line-height: 1.35;
-    /* Hard cap: 3 lines max — ~120 chars */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
   body[data-slide-type="cover"] .cover-footer {
     margin-top: auto;
@@ -203,10 +144,10 @@
     width: 32px; height: 32px; border-radius: 50%;
     background: linear-gradient(135deg, var(--accent-1), var(--accent-warm));
     display: flex; align-items: center; justify-content: center;
-    font-size: 18px; color: var(--bg);
+    font-size: 18px; color: var(--bg-base);
   }
 
-  /* ───────────── TIP SLIDE ───────────── */
+  /* ─── TIP ─── */
   body[data-slide-type="tip"] .tip-header {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 72px;
@@ -232,17 +173,19 @@
   }
 
   body[data-slide-type="tip"] .tip-command {
-    font-family: var(--font-mono), 'Courier New', monospace;
+    font-family: var(--font-mono);
     font-weight: 700;
-    font-size: 120px;
+    font-size: 110px;
     color: #fff;
     letter-spacing: -0.04em;
     margin-bottom: 36px;
     line-height: 1;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
-  body[data-slide-type="tip"][data-cmd-len="long"] .tip-command { font-size: 96px; }
-  body[data-slide-type="tip"][data-cmd-len="xlong"] .tip-command { font-size: 76px; }
+  body[data-slide-type="tip"][data-cmd-len="long"]  .tip-command { font-size: 88px; }
+  body[data-slide-type="tip"][data-cmd-len="xlong"] .tip-command { font-size: 70px; }
+
   body[data-slide-type="tip"] .tip-command .accent {
     background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
     -webkit-background-clip: text; background-clip: text;
@@ -251,15 +194,10 @@
 
   body[data-slide-type="tip"] .tip-description {
     font-family: var(--font-body);
-    font-size: 36px; color: var(--ink-300);
+    font-size: 34px; color: var(--ink-300);
     line-height: 1.4;
     margin-bottom: 60px;
     max-width: 860px;
-    /* Hard cap: 3 lines max — ~150 chars */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 
   body[data-slide-type="tip"] .terminal {
@@ -285,7 +223,6 @@
     font-family: var(--font-mono);
     font-size: 28px; line-height: 1.65;
     color: var(--ink-200);
-    /* Each line caps at 1 row — ~42 chars */
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .term-prompt  { color: var(--accent-2); }
@@ -307,12 +244,12 @@
     width: 36px; border-radius: 100px;
   }
 
-  /* ───────────── CTA SLIDE ───────────── */
+  /* ─── CTA ─── */
   body[data-slide-type="cta"] {
     background:
       radial-gradient(ellipse at top right, var(--glow-1), transparent 60%),
       radial-gradient(ellipse at bottom left, var(--glow-2), transparent 60%),
-      linear-gradient(180deg, #0F172A 0%, #1E1B4B 100%);
+      var(--bg-base);
   }
   body[data-slide-type="cta"] .canvas {
     align-items: center; justify-content: center;
@@ -326,20 +263,19 @@
     font-weight: 700;
   }
   body[data-slide-type="cta"] .cta-title {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
-    font-size: 130px;
+    font-size: 120px;
     line-height: 1;
     letter-spacing: -0.04em;
     margin-bottom: 32px;
     text-wrap: balance;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
-  body[data-slide-type="cta"][data-cta-len="long"] .cta-title { font-size: 110px; }
-  body[data-slide-type="cta"][data-cta-len="xlong"] .cta-title { font-size: 96px; }
+  body[data-slide-type="cta"][data-cta-len="long"]  .cta-title { font-size: 100px; }
+  body[data-slide-type="cta"][data-cta-len="xlong"] .cta-title { font-size: 84px; }
+
   body[data-slide-type="cta"] .cta-title .gradient-text {
     background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-warm) 50%, var(--accent-2) 100%);
     -webkit-background-clip: text; background-clip: text;
@@ -351,34 +287,6 @@
     margin-bottom: 80px;
     max-width: 760px;
     line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  body[data-slide-type="cta"] .cta-actions {
-    display: flex; gap: 28px; margin-bottom: 80px;
-  }
-  body[data-slide-type="cta"] .cta-card {
-    width: 230px; padding: 40px 24px;
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 28px;
-    display: flex; flex-direction: column; align-items: center; gap: 20px;
-  }
-  body[data-slide-type="cta"] .cta-icon {
-    width: 88px; height: 88px; border-radius: 22px;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--accent-1), var(--accent-warm));
-    box-shadow: 0 12px 32px -8px var(--glow-1);
-  }
-  body[data-slide-type="cta"] .cta-icon svg { width: 44px; height: 44px; color: var(--bg); }
-  body[data-slide-type="cta"] .cta-card-label {
-    font-family: var(--font-body);
-    font-weight: 700; font-size: 24px; color: #fff;
-  }
-  body[data-slide-type="cta"] .cta-card-sub {
-    font-family: var(--font-body); font-size: 16px; color: var(--ink-400);
   }
   body[data-slide-type="cta"] .cta-handle {
     font-family: var(--font-mono);
@@ -391,11 +299,10 @@
   body[data-slide-type="cta"] .cta-handle .at { color: var(--accent-2); }
 </style>
 </head>
-<body data-theme="{{theme}}" data-slide-type="{{slide_type}}" data-title-len="{{title_len}}" data-cmd-len="{{cmd_len}}" data-cta-len="{{cta_len}}">
+<body data-slide-type="{{slide_type}}" data-title-len="{{title_len}}" data-cmd-len="{{cmd_len}}" data-cta-len="{{cta_len}}">
 
   <div class="layer-grid"></div>
 
-  <!-- ─── COVER ─── -->
   {{#if_cover}}
   <div class="orb-aurora"></div>
   <div class="canvas">
@@ -412,7 +319,6 @@
   </div>
   {{/if_cover}}
 
-  <!-- ─── TIP ─── -->
   {{#if_tip}}
   <div class="glow-tl"></div>
   <div class="glow-br"></div>
@@ -431,29 +337,11 @@
   <div class="dots">{{dots_html}}</div>
   {{/if_tip}}
 
-  <!-- ─── CTA ─── -->
   {{#if_cta}}
   <div class="canvas">
     <div class="cta-eyebrow">{{cta_eyebrow}}</div>
     <h2 class="cta-title">{{cta_title_1}} <span class="gradient-text">{{cta_title_2}}</span></h2>
     <p class="cta-subtitle">{{cta_subtitle}}</p>
-    <div class="cta-actions">
-      <div class="cta-card">
-        <div class="cta-icon"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-        <div class="cta-card-label">Enregistre</div>
-        <div class="cta-card-sub">pour relire</div>
-      </div>
-      <div class="cta-card">
-        <div class="cta-icon"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
-        <div class="cta-card-label">Partage</div>
-        <div class="cta-card-sub">à un dev</div>
-      </div>
-      <div class="cta-card">
-        <div class="cta-icon"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></div>
-        <div class="cta-card-label">Abonne-toi</div>
-        <div class="cta-card-sub">plus de tips</div>
-      </div>
-    </div>
     <div class="cta-handle"><span class="at">@</span>{{handle_clean}}</div>
   </div>
   {{/if_cta}}
